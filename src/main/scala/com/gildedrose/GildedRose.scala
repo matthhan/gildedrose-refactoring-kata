@@ -16,8 +16,7 @@ class GildedRose(val items: Array[Item]) {
   def shouldJustLoseQuality(item:Item) =
     !isAgedBrie(item) &&
       !isBackstagePasses(item) &&
-      !isSulfuras(item) &&
-      item.quality > 0
+      !isSulfuras(item)
 
   private def updatedSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
 
