@@ -16,12 +16,11 @@ class GildedRose(val items: Array[Item]) {
   private def updatedSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
   private def hasToBeSold(i: Item) = !isSulfuras(i)
 
-  private def updatedQuality(item: Item):Int = {
-      if(isSulfuras(item)) newQualitySulfuras(item)
-      else if (isAgedBrie(item)) newQualityAgedBrie(item)
-      else if (isBackstagePasses(item)) newQualityBackstagePasses(item)
-      else newQualityNormalItem(item)
-  }
+  private def updatedQuality(item: Item):Int =
+    if(isSulfuras(item)) newQualitySulfuras(item)
+    else if (isAgedBrie(item)) newQualityAgedBrie(item)
+    else if (isBackstagePasses(item)) newQualityBackstagePasses(item)
+    else newQualityNormalItem(item)
 
   private def newQualityBackstagePasses(item: Item) = withinQualityBounds(item.quality + qualityChangeBackstagePasses(item))
   private def newQualityNormalItem(item: Item) = withinQualityBounds(item.quality + (if (item.sellIn <= 0) -2 else -1))
