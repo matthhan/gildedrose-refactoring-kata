@@ -10,7 +10,8 @@ class GildedRose(val items: Array[Item]) {
   def updateQuality() {
     for (i <- 0 until items.length) {
       if (shouldJustLoseQuality(items(i))) {
-        items(i).quality = items(i).quality - 1
+        val qualityLoss = if(items(i).sellIn <= 0) 2 else 1
+        items(i).quality = Math.max(items(i).quality - qualityLoss,0)
       }
       if(items(i).name.equals("Aged Brie")) {
         val qualityIncrease = if(items(i).sellIn <= 0) 2 else 1
@@ -24,18 +25,6 @@ class GildedRose(val items: Array[Item]) {
 
       if (hasToBeSold(items(i))) {
         items(i).sellIn = items(i).sellIn - 1
-      }
-
-      if (items(i).sellIn < 0) {
-        if (!items(i).name.equals("Aged Brie")) {
-          if (!items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            if (items(i).quality > 0) {
-              if (!items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
-                items(i).quality = items(i).quality - 1
-              }
-            }
-          }
-        }
       }
     }
   }
