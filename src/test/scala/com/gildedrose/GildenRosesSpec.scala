@@ -7,8 +7,7 @@ class GildedRoseTest extends WordSpec with Matchers {
   "Gilded Roses" when {
 
     "common item is updated" should {
-      val commonItem = new Item(name = "foo", sellIn = 2, quality = 2)
-      val app = createGildedRose(commonItem)
+      val app = gildedRoseWithItem(name = "foo", sellIn = 2, quality = 2)
 
       "reduce sellIn and quality by 1" in {
         app.updateQuality()
@@ -59,8 +58,7 @@ class GildedRoseTest extends WordSpec with Matchers {
     }
 
     "Sulfuras is updated" should {
-      val sulfuras = new Item("Sulfuras, Hand of Ragnaros", 5, 80)
-      val app = createGildedRose(sulfuras)
+      val app = gildedRoseWithItem("Sulfuras, Hand of Ragnaros", 5, 80)
 
       "not change quality" in {
         2 times { app.updateQuality() }
@@ -73,8 +71,7 @@ class GildedRoseTest extends WordSpec with Matchers {
     "Backstage pass is updated" should {
 
       "increase quality by two when sellIn in (5, 10]" in {
-        val pass = new Item("Backstage passes to a TAFKAL80ETC concert", 7, 1)
-        val app = createGildedRose(pass)
+        val app = gildedRoseWithItem("Backstage passes to a TAFKAL80ETC concert", 7, 1)
 
         2 times { app.updateQuality() }
 
@@ -82,8 +79,7 @@ class GildedRoseTest extends WordSpec with Matchers {
       }
 
       "increase quality by 3 when sellIn is < 5" in {
-        val pass = new Item("Backstage passes to a TAFKAL80ETC concert", 4, 1)
-        val app = createGildedRose(pass)
+        val app = gildedRoseWithItem("Backstage passes to a TAFKAL80ETC concert", 4, 1)
 
         2 times { app.updateQuality() }
 
@@ -91,8 +87,7 @@ class GildedRoseTest extends WordSpec with Matchers {
       }
 
       "set quality to 0 when sellIn is 0" in {
-        val pass = new Item("Backstage passes to a TAFKAL80ETC concert", 0, 5)
-        val app = createGildedRose(pass)
+        val app = gildedRoseWithItem("Backstage passes to a TAFKAL80ETC concert", 0, 5)
 
         app.updateQuality()
 
@@ -104,6 +99,7 @@ class GildedRoseTest extends WordSpec with Matchers {
   private def createGildedRose(items: Item*) = {
     new GildedRose(items.toArray)
   }
+  private def gildedRoseWithItem(name:String,sellIn:Int,quality:Int) = new GildedRose(Array(new Item(name,sellIn,quality)))
   implicit class TimesInt(i:Int) {
     def times(expr: => Unit):Unit = {
       (0 until i).foreach(_ => expr)
