@@ -14,15 +14,15 @@ class GildedRose(val items: Array[Item]) {
 
   def updateQuality() {
     items.foreach(item => {
-      item.quality = determineNewQuality(item)
+      item.quality = updatedQuality(item)
 
-      item.sellIn = determineNewSellDeadline(item)
+      item.sellIn = updatedSellDeadline(item)
     })
   }
 
-  private def determineNewSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
+  private def updatedSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
 
-  private def determineNewQuality(item: Item):Int = {
+  private def updatedQuality(item: Item):Int = {
     val qualityIncrease =
       if (shouldJustLoseQuality(item)) -(if (item.sellIn <= 0) 2 else 1)
       else if (isAgedBrie(item))
