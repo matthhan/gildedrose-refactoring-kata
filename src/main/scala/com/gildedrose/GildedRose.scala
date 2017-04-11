@@ -33,8 +33,8 @@ class GildedRose(val items: Array[Item]) {
     else if (item.sellIn > 0) 3
     else -item.quality
 
-  private def withinQualityBounds(oldQuality:Int) = pullIntoBounds(0,50)(oldQuality)
-  private def pullIntoBounds(lower:Int,upper:Int) = (x:Int) => Math.min(Math.max(x, lower), upper)
+  private def withinQualityBounds(oldQuality:Int) = withinBounds(0,50)(oldQuality)
+  private def withinBounds(lower:Int,upper:Int) = (x:Int) => Math.min(Math.max(x, lower), upper)
 
   private def hasToBeSold(i: Item) = !isSulfuras(i)
 }
