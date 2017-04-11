@@ -13,11 +13,6 @@ class GildedRose(val items: Array[Item]) {
   private def isBackstagePasses(item: Item) =  item.name == "Backstage passes to a TAFKAL80ETC concert"
   private def isAgedBrie(item: Item) = item.name == "Aged Brie"
 
-  def shouldJustLoseQuality(item:Item) =
-    !isAgedBrie(item) &&
-      !isBackstagePasses(item) &&
-      !isSulfuras(item)
-
   private def updatedSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
 
   private def updatedQuality(item: Item):Int = {
