@@ -26,7 +26,7 @@ class GildedRose(val items: Array[Item]) {
       else if (isAgedBrie(item)) qualityChangeAgedBrie(item)
       else if (isBackstagePasses(item)) qualityChangeBackstagePasses(item)
       else qualityChangeNormalItem(item)
-    val newQuality = if(isBackstagePasses(item) && item.sellIn == 0) 0 else newQualityWithinTheBounds(item,qualityIncrease)
+    val newQuality = if(isBackstagePasses(item) && item.sellIn == 0) 0 else newQualityWithinTheBounds(item.quality,qualityIncrease)
     return newQuality
   }
 
@@ -35,8 +35,8 @@ class GildedRose(val items: Array[Item]) {
   private def qualityChangeAgedBrie(item: Item) = -qualityChangeNormalItem(item)
   private def qualityChangeSulfuras(item:Item) = 0
 
-  private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) =
-    if (qualityIncrease != 0) Math.min(Math.max(item.quality + qualityIncrease, 0), 50) else item.quality
+  private def newQualityWithinTheBounds(currentQuality:Int, qualityIncrease: Int) =
+    if (qualityIncrease != 0) Math.min(Math.max(currentQuality + qualityIncrease, 0), 50) else currentQuality
 
   private def hasToBeSold(i: Item) = !isSulfuras(i)
 }
