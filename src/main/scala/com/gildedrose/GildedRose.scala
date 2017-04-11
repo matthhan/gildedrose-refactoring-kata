@@ -13,13 +13,13 @@ class GildedRose(val items: Array[Item]) {
   private def isAgedBrie(item: Item) = item.name == "Aged Brie"
 
   def updateQuality() {
-    for (i <- 0 until items.length) {
-      determineNewQuality(items(i))
+    items.foreach(item => {
+      determineNewQuality(item)
 
-      if (hasToBeSold(items(i))) {
-        items(i).sellIn = items(i).sellIn - 1
+      if (hasToBeSold(item)) {
+        item.sellIn = item.sellIn - 1
       }
-    }
+    })
   }
 
   private def determineNewQuality(item: Item) = {
