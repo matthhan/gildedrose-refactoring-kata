@@ -8,17 +8,9 @@ class GildedRose(val items: Array[Item]) {
       !isSulfuras(item) &&
       item.quality > 0
 
-  private def isSulfuras(item: Item) = {
-    item.name.equals("Sulfuras, Hand of Ragnaros")
-  }
-
-  private def isBackstagePasses(item: Item) = {
-    item.name.equals("Backstage passes to a TAFKAL80ETC concert")
-  }
-
-  private def isAgedBrie(item: Item) = {
-    item.name.equals("Aged Brie")
-  }
+  private def isSulfuras(item: Item) = item.name == "Sulfuras, Hand of Ragnaros"
+  private def isBackstagePasses(item: Item) =  item.name == "Backstage passes to a TAFKAL80ETC concert"
+  private def isAgedBrie(item: Item) = item.name == "Aged Brie"
 
   def updateQuality() {
     for (i <- 0 until items.length) {
