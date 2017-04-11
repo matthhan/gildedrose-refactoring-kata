@@ -22,15 +22,21 @@ class GildedRose(val items: Array[Item]) {
 
   private def updatedQuality(item: Item):Int = {
     val qualityIncrease =
-      if(isSulfuras(item)) 0
-      else if (isAgedBrie(item))
-        if (item.sellIn <= 0) 2 else 1
-      else if (isBackstagePasses(item))
-        if (item.sellIn >= 11) 1 else if (item.sellIn >= 6) 2 else 3
-      else -(if (item.sellIn <= 0) 2 else 1)
+      if(isSulfuras(item)) qualityChangeSulfuras(item)
+      else if (isAgedBrie(item)) qualityChangeAgedBrie(item)
+      else if (isBackstagePasses(item)) qualityChangeBackstagePasses(item)
+      else qualityChangeNormalItem(item)
     val newQuality = if(isBackstagePasses(item) && item.sellIn == 0) 0 else newQualityWithinTheBounds(item,qualityIncrease)
     return newQuality
   }
+
+  private def qualityChangeBackstagePasses(item: Item) = if (item.sellIn >= 11) 1 else if (item.sellIn >= 6) 2 else 3
+
+  private def qualityChangeNormalItem(item: Item) = -(if (item.sellIn <= 0) 2 else 1)
+
+  private def qualityChangeAgedBrie(item: Item) = if (item.sellIn <= 0) 2 else 1
+
+  def qualityChangeSulfuras(item:Item) = 0
 
   private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) =
     if (qualityIncrease != 0) Math.min(Math.max(item.quality + qualityIncrease, 0), 50) else item.quality
