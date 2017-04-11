@@ -2,23 +2,22 @@ package com.gildedrose
 
 class GildedRose(val items: Array[Item]) {
 
-  def shouldJustLoseQuality(item:Item) =
-    !isAgedBrie(item) &&
-      !isBackstagePasses(item) &&
-      !isSulfuras(item) &&
-      item.quality > 0
+  def updateQuality() {
+    items.foreach(item => {
+      item.quality = updatedQuality(item)
+      item.sellIn = updatedSellDeadline(item)
+    })
+  }
 
   private def isSulfuras(item: Item) = item.name == "Sulfuras, Hand of Ragnaros"
   private def isBackstagePasses(item: Item) =  item.name == "Backstage passes to a TAFKAL80ETC concert"
   private def isAgedBrie(item: Item) = item.name == "Aged Brie"
 
-  def updateQuality() {
-    items.foreach(item => {
-      item.quality = updatedQuality(item)
-
-      item.sellIn = updatedSellDeadline(item)
-    })
-  }
+  def shouldJustLoseQuality(item:Item) =
+    !isAgedBrie(item) &&
+      !isBackstagePasses(item) &&
+      !isSulfuras(item) &&
+      item.quality > 0
 
   private def updatedSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
 
