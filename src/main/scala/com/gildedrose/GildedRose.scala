@@ -27,7 +27,7 @@ class GildedRose(val items: Array[Item]) {
   }
 
   private def determineNewQuality(item: Item) = {
-    var qualityIncrease
+    var qualityIncrease = 0
     if (shouldJustLoseQuality(item)) {
       qualityIncrease = -(if (item.sellIn <= 0) 2 else 1)
     }
@@ -37,7 +37,7 @@ class GildedRose(val items: Array[Item]) {
     if (isBackstagePasses(item)) {
       qualityIncrease = if (item.sellIn >= 11) 1 else if (item.sellIn >= 6) 2 else 3
     }
-    item.quality = Math.min(Math.max(item.quality + qualityIncrease, 0),50)
+    item.quality = if(qualityIncrease != 0) Math.min(Math.max(item.quality + qualityIncrease, 0),50) else item.quality
     if(isBackstagePasses(item) && item.sellIn == 0) item.quality = 0
   }
 
