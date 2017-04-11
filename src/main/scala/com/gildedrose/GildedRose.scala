@@ -12,9 +12,7 @@ class GildedRose(val items: Array[Item]) {
       if (shouldJustLoseQuality(items(i))) {
         items(i).quality = items(i).quality - 1
       }
-      if (!items(i).name.equals("Aged Brie")
-        && !items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-      } else {
+      if (items(i).name.equals("Aged Brie") || items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
         if (items(i).quality < 50) {
           items(i).quality = items(i).quality + 1
 
