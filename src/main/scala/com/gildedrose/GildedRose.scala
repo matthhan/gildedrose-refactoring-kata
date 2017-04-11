@@ -34,11 +34,8 @@ class GildedRose(val items: Array[Item]) {
     return newQuality
   }
 
-  private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) = {
+  private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) =
     if (qualityIncrease != 0) Math.min(Math.max(item.quality + qualityIncrease, 0), 50) else item.quality
-  }
 
-  private def hasToBeSold(i: Item) = {
-    !isSulfuras(i)
-  }
+  private def hasToBeSold(i: Item) = !isSulfuras(i)
 }
