@@ -27,23 +27,30 @@ class GildedRoseTest extends WordSpec with Matchers {
     }
 
     "Aged Brie is updated" should {
-      def agedBrie = new Item(name = "Aged Brie", sellIn = 1, quality = 2)
+      def agedBrie = new Item(name = "Aged Brie", sellIn = 5, quality = 2)
 
-      "increment quality by one on the first update" in {
+      "increment quality by one if sellIn is >= 0" in {
         val app = createGildedRose(agedBrie)
 
         app.updateQuality()
-
-        app.items(0).quality shouldBe 3
-      }
-
-      "increment quality by two on subsequent updates" in {
-        val app = createGildedRose(agedBrie)
-
         app.updateQuality()
         app.updateQuality()
 
         app.items(0).quality shouldBe 5
+      }
+
+      "increment quality by two if sellIn is == 0" in {
+        val app = createGildedRose(agedBrie)
+
+        app.updateQuality()
+        app.updateQuality()
+        app.updateQuality()
+        app.updateQuality()
+        app.updateQuality()
+        app.updateQuality()
+        app.updateQuality()
+
+        app.items(0).quality shouldBe 11
       }
 
       "not increment quality above 50" in {
