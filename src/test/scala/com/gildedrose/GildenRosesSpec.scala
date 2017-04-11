@@ -49,11 +49,11 @@ class GildedRoseTest extends WordSpec with Matchers {
       "not increment quality above 50" in {
         val app = createGildedRose(agedBrie)
 
-        (1 to 50).foreach { _ =>
+        (1 to 100).foreach { _ =>
           app.updateQuality()
         }
 
-        app.items(0).quality should be <= 50
+        app.items(0).quality shouldBe 50
       }
     }
 
