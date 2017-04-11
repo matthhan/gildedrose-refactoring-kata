@@ -2,12 +2,14 @@ package com.gildedrose
 
 class GildedRose(val items: Array[Item]) {
 
+  def shouldJustLoseQuality(item:Item) =
+    !item.name.equals("Aged Brie") &&
+      !item.name.equals("Backstage passes to a TAFKAL80ETC concert") &&
+      !item.name.equals("Sulfuras, Hand of Ragnaros") &&
+      item.quality > 0
   def updateQuality() {
     for (i <- 0 until items.length) {
-      if (!items(i).name.equals("Aged Brie")
-        && !items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")
-        && items(i).quality > 0
-        && !items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
+      if (shouldJustLoseQuality(items(i))) {
         items(i).quality = items(i).quality - 1
       }
       if (!items(i).name.equals("Aged Brie")
