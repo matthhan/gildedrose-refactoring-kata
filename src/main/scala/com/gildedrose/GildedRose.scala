@@ -20,11 +20,7 @@ class GildedRose(val items: Array[Item]) {
     })
   }
 
-  private def determineNewSellDeadline(item: Item) = {
-    if (hasToBeSold(item)) {
-      item.sellIn - 1
-    } else item.sellIn
-  }
+  private def determineNewSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
 
   private def determineNewQuality(item: Item):Int = {
     val qualityIncrease =
