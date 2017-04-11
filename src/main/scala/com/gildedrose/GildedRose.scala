@@ -34,8 +34,12 @@ class GildedRose(val items: Array[Item]) {
       else if (isBackstagePasses(item))
         if (item.sellIn >= 11) 1 else if (item.sellIn >= 6) 2 else 3
       else 0
-    item.quality = if(qualityIncrease != 0) Math.min(Math.max(item.quality + qualityIncrease, 0),50) else item.quality
+    item.quality = newQualityWithinTheBounds(item, qualityIncrease)
     if(isBackstagePasses(item) && item.sellIn == 0) item.quality = 0
+  }
+
+  private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) = {
+    if (qualityIncrease != 0) Math.min(Math.max(item.quality + qualityIncrease, 0), 50) else item.quality
   }
 
   private def hasToBeSold(i: Item) = {
