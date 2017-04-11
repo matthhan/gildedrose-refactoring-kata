@@ -39,8 +39,8 @@ class GildedRose(val items: Array[Item]) {
     if (isBackstagePasses(item)) {
       val qualityIncrease = if (item.sellIn >= 11) 1 else if (item.sellIn >= 6) 2 else 3
       item.quality = Math.min(item.quality + qualityIncrease, 50)
-      if (item.sellIn == 0) item.quality = 0
     }
+    if(isBackstagePasses(item) && item.sellIn == 0) item.quality = 0
   }
 
   private def hasToBeSold(i: Item) = {
