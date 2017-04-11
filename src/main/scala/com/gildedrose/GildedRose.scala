@@ -36,7 +36,7 @@ class GildedRose(val items: Array[Item]) {
 
   private def qualityChangeAgedBrie(item: Item) = -qualityChangeNormalItem(item)
 
-  def qualityChangeSulfuras(item:Item) = 0
+  private def qualityChangeSulfuras(item:Item) = 0
 
   private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) =
     if (qualityIncrease != 0) Math.min(Math.max(item.quality + qualityIncrease, 0), 50) else item.quality
