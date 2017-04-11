@@ -12,20 +12,20 @@ class GildedRoseTest extends WordSpec with Matchers {
       "reduce sellIn and quality by 1" in {
         app.updateQuality()
 
-        app.items.head.sellIn shouldBe 1
-        app.items.head.quality shouldBe 1
+        app.sellIn shouldBe 1
+        app.quality shouldBe 1
       }
       "reduce quality by 2 if sellIn is 0" in {
         val app = createGildedRose(new Item(name = "foo",sellIn = 2, quality=10))
         4 times { app.updateQuality() }
 
-        app.items.head.quality shouldBe 4
+        app.quality shouldBe 4
       }
 
       "not reduce quality below 0" in {
         3 times { app.updateQuality() }
 
-        app.items.head.quality shouldBe 0
+        app.quality shouldBe 0
       }
     }
 
@@ -37,7 +37,7 @@ class GildedRoseTest extends WordSpec with Matchers {
 
         3 times { app.updateQuality() }
 
-        app.items(0).quality shouldBe 5
+        app.quality shouldBe 5
       }
 
       "increment quality by two if sellIn is == 0" in {
@@ -45,7 +45,7 @@ class GildedRoseTest extends WordSpec with Matchers {
 
         7 times { app.updateQuality() }
 
-        app.items(0).quality shouldBe 11
+        app.quality shouldBe 11
       }
 
       "not increment quality above 50" in {
@@ -53,7 +53,7 @@ class GildedRoseTest extends WordSpec with Matchers {
 
         100 times { app.updateQuality() }
 
-        app.items(0).quality shouldBe 50
+        app.quality shouldBe 50
       }
     }
 
@@ -63,8 +63,8 @@ class GildedRoseTest extends WordSpec with Matchers {
       "not change quality" in {
         2 times { app.updateQuality() }
 
-        app.items(0).sellIn shouldBe 5
-        app.items(0).quality shouldBe 80
+        app.sellIn shouldBe 5
+        app.quality shouldBe 80
       }
     }
 
@@ -75,7 +75,7 @@ class GildedRoseTest extends WordSpec with Matchers {
 
         2 times { app.updateQuality() }
 
-        app.items(0).quality shouldBe 5
+        app.quality shouldBe 5
       }
 
       "increase quality by 3 when sellIn is < 5" in {
@@ -83,7 +83,7 @@ class GildedRoseTest extends WordSpec with Matchers {
 
         2 times { app.updateQuality() }
 
-        app.items(0).quality shouldBe 7
+        app.quality shouldBe 7
       }
 
       "set quality to 0 when sellIn is 0" in {
@@ -91,7 +91,7 @@ class GildedRoseTest extends WordSpec with Matchers {
 
         app.updateQuality()
 
-        app.items(0).quality shouldBe 0
+        app.quality shouldBe 0
       }
     }
   }
@@ -104,6 +104,10 @@ class GildedRoseTest extends WordSpec with Matchers {
     def times(expr: => Unit):Unit = {
       (0 until i).foreach(_ => expr)
     }
+  }
+  implicit class gildedRoseWithAccessors(rose:GildedRose) {
+    def quality = rose.items.head.quality
+    def sellIn = rose.items.head.sellIn
   }
 
 }
