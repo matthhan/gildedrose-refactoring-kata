@@ -58,15 +58,15 @@ class GildedRoseTest extends WordSpec with Matchers {
     }
 
     "Sulfuras is updated" should {
-      val sulfuras = new Item("Sulfuras, Hand of Ragnaros", 1, 1)
+      val sulfuras = new Item("Sulfuras, Hand of Ragnaros", 5, 80)
       val app = createGildedRose(sulfuras)
 
       "not change quality" in {
         app.updateQuality()
         app.updateQuality()
 
-        app.items(0).sellIn shouldBe 1
-        app.items(0).quality shouldBe 1
+        app.items(0).sellIn shouldBe 5
+        app.items(0).quality shouldBe 80
       }
     }
 
