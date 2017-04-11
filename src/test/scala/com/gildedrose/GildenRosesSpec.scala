@@ -16,6 +16,15 @@ class GildedRoseTest extends WordSpec with Matchers {
         app.items.head.sellIn shouldBe 1
         app.items.head.quality shouldBe 1
       }
+      "reduce quality by 2 if sellIn is 0" in {
+        val app = createGildedRose(new Item(name = "foo",sellIn = 2, quality=10))
+        app.updateQuality()
+        app.updateQuality()
+        app.updateQuality()
+        app.updateQuality()
+
+        app.items.head.quality shouldBe 4
+      }
 
       "not reduce quality below 0" in {
         app.updateQuality()
