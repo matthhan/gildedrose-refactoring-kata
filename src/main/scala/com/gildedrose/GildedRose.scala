@@ -23,18 +23,22 @@ class GildedRose(val items: Array[Item]) {
   }
 
   private def determineNewQuality(i: Int) = {
-    if (shouldJustLoseQuality(items(i))) {
-      val qualityLoss = if (items(i).sellIn <= 0) 2 else 1
-      items(i).quality = Math.max(items(i).quality - qualityLoss, 0)
+    def getItem = {
+      items(i)
     }
-    if (isAgedBrie(items(i))) {
-      val qualityIncrease = if (items(i).sellIn <= 0) 2 else 1
-      items(i).quality = Math.min(items(i).quality + qualityIncrease, 50)
+
+    if (shouldJustLoseQuality(getItem)) {
+      val qualityLoss = if (getItem.sellIn <= 0) 2 else 1
+      getItem.quality = Math.max(getItem.quality - qualityLoss, 0)
     }
-    if (isBackstagePasses(items(i))) {
-      val qualityIncrease = if (items(i).sellIn >= 11) 1 else if (items(i).sellIn >= 6) 2 else 3
-      items(i).quality = Math.min(items(i).quality + qualityIncrease, 50)
-      if (items(i).sellIn == 0) items(i).quality = 0
+    if (isAgedBrie(getItem)) {
+      val qualityIncrease = if (getItem.sellIn <= 0) 2 else 1
+      getItem.quality = Math.min(getItem.quality + qualityIncrease, 50)
+    }
+    if (isBackstagePasses(getItem)) {
+      val qualityIncrease = if (getItem.sellIn >= 11) 1 else if (getItem.sellIn >= 6) 2 else 3
+      getItem.quality = Math.min(getItem.quality + qualityIncrease, 50)
+      if (getItem.sellIn == 0) getItem.quality = 0
     }
   }
 
