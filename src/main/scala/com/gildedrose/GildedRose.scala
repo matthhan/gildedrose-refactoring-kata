@@ -31,11 +31,8 @@ class GildedRose(val items: Array[Item]) {
   }
 
   private def qualityChangeBackstagePasses(item: Item) = if (item.sellIn >= 11) 1 else if (item.sellIn >= 6) 2 else 3
-
   private def qualityChangeNormalItem(item: Item) = if (item.sellIn <= 0) -2 else -1
-
   private def qualityChangeAgedBrie(item: Item) = -qualityChangeNormalItem(item)
-
   private def qualityChangeSulfuras(item:Item) = 0
 
   private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) =
