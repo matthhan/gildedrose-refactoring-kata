@@ -29,8 +29,8 @@ class GildedRose(val items: Array[Item]) {
   private def determineNewQuality(item: Item) = {
 
     if (shouldJustLoseQuality(item)) {
-      val qualityLoss = if (item.sellIn <= 0) 2 else 1
-      item.quality = Math.max(item.quality - qualityLoss, 0)
+      val qualityIncrease = -(if (item.sellIn <= 0) 2 else 1)
+      item.quality = Math.max(item.quality + qualityIncrease, 0)
     }
     if (isAgedBrie(item)) {
       val qualityIncrease = if (item.sellIn <= 0) 2 else 1
