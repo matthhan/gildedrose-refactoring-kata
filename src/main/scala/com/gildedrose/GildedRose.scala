@@ -19,15 +19,13 @@ class GildedRose(val items: Array[Item]) {
       if (items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
         val qualityIncrease = if(items(i).sellIn >= 11) 1 else if(items(i).sellIn >= 6) 2 else 3
         items(i).quality = Math.min(items(i).quality + qualityIncrease,50)
+        if(items(i).sellIn == 0) items(i).quality = 0
       }
 
       if (hasToBeSold(items(i))) {
         items(i).sellIn = items(i).sellIn - 1
       }
 
-      if(items(i).sellIn < 0 && items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-        items(i).quality = items(i).quality - items(i).quality
-      }
       if (items(i).sellIn < 0) {
         if (!items(i).name.equals("Aged Brie")) {
           if (!items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
