@@ -14,7 +14,7 @@ class GildedRose(val items: Array[Item]) {
 
   def updateQuality() {
     items.foreach(item => {
-      determineNewQuality(item)
+      item.quality = determineNewQuality(item)
 
       item.sellIn = determineNewSellDeadline(item)
     })
@@ -26,7 +26,7 @@ class GildedRose(val items: Array[Item]) {
     } else item.sellIn
   }
 
-  private def determineNewQuality(item: Item) = {
+  private def determineNewQuality(item: Item):Int = {
     val qualityIncrease =
       if (shouldJustLoseQuality(item)) -(if (item.sellIn <= 0) 2 else 1)
       else if (isAgedBrie(item))
@@ -34,8 +34,8 @@ class GildedRose(val items: Array[Item]) {
       else if (isBackstagePasses(item))
         if (item.sellIn >= 11) 1 else if (item.sellIn >= 6) 2 else 3
       else 0
-    item.quality = newQualityWithinTheBounds(item, qualityIncrease)
-    if(isBackstagePasses(item) && item.sellIn == 0) item.quality = 0
+    val newQuality = if(isBackstagePasses(item) && item.sellIn == 0) 0 else newQualityWithinTheBounds(item,qualityIncrease)
+    return newQuality
   }
 
   private def newQualityWithinTheBounds(item: Item, qualityIncrease: Int) = {
