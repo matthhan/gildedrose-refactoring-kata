@@ -16,11 +16,14 @@ class GildedRose(val items: Array[Item]) {
     items.foreach(item => {
       determineNewQuality(item)
 
-      val newSellInDate  = if (hasToBeSold(item)) {
-        item.sellIn - 1
-      } else item.sellIn
-      item.sellIn = newSellInDate
+      item.sellIn = determineNewSellDeadline(item)
     })
+  }
+
+  private def determineNewSellDeadline(item: Item) = {
+    if (hasToBeSold(item)) {
+      item.sellIn - 1
+    } else item.sellIn
   }
 
   private def determineNewQuality(item: Item) = {
