@@ -13,7 +13,7 @@ class GildedRose(val items: Array[Item]) {
         items(i).quality = items(i).quality - 1
       }
       if(items(i).name.equals("Aged Brie")) {
-        items(i).quality = items(i).quality + (if(items(i).quality < 50) 1 else 0)
+        items(i).quality = Math.min(items(i).quality + 1, 50)
       }
       if (items(i).name.equals("Backstage passes to a TAFKAL80ETC concert")) {
         val qualityIncrease = if(items(i).sellIn >= 11) 1 else if(items(i).sellIn >= 6) 2 else 3
