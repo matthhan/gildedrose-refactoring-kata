@@ -14,6 +14,7 @@ class GildedRose(val items: Array[Item]) {
   private def isAgedBrie(item: Item) = item.name == "Aged Brie"
 
   private def updatedSellDeadline(item: Item) = if (hasToBeSold(item)) item.sellIn - 1 else item.sellIn
+  private def hasToBeSold(i: Item) = !isSulfuras(i)
 
   private def updatedQuality(item: Item):Int = {
       if(isSulfuras(item)) newQualitySulfuras(item)
@@ -36,5 +37,4 @@ class GildedRose(val items: Array[Item]) {
   private def withinQualityBounds(oldQuality:Int) = withinBounds(0,50)(oldQuality)
   private def withinBounds(lower:Int,upper:Int) = (x:Int) => Math.min(Math.max(x, lower), upper)
 
-  private def hasToBeSold(i: Item) = !isSulfuras(i)
 }
