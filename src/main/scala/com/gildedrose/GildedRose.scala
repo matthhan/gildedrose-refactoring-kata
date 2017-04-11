@@ -21,7 +21,7 @@ class GildedRose(val items: Array[Item]) {
       else if (isAgedBrie(item)) qualityChangeAgedBrie(item)
       else if (isBackstagePasses(item)) qualityChangeBackstagePasses(item)
       else qualityChangeNormalItem(item)
-    if(qualityIncrease == 0) item.quality else honorQualityBounds(item.quality + qualityIncrease)
+    if(qualityIncrease == 0) item.quality else withinQualityBounds(item.quality + qualityIncrease)
   }
 
   private def qualityChangeBackstagePasses(item: Item) =
@@ -34,7 +34,7 @@ class GildedRose(val items: Array[Item]) {
   private def qualityChangeAgedBrie(item: Item) = -qualityChangeNormalItem(item)
   private def qualityChangeSulfuras(item:Item) = 0
 
-  private def honorQualityBounds(oldQuality:Int) = pullIntoBounds(0,50)(oldQuality)
+  private def withinQualityBounds(oldQuality:Int) = pullIntoBounds(0,50)(oldQuality)
   private def pullIntoBounds(lower:Int,upper:Int) = (x:Int) => Math.min(Math.max(x, lower), upper)
 
   private def hasToBeSold(i: Item) = !isSulfuras(i)
