@@ -20,7 +20,7 @@ class GildedRose(val items: Array[Item]) {
         items(i).quality = Math.min(items(i).quality + qualityIncrease,50)
       }
 
-      if (!items(i).name.equals("Sulfuras, Hand of Ragnaros")) {
+      if (hasToBeSold(items(i))) {
         items(i).sellIn = items(i).sellIn - 1
       }
 
@@ -42,5 +42,9 @@ class GildedRose(val items: Array[Item]) {
         }
       }
     }
+  }
+
+  private def hasToBeSold(i: Item) = {
+    !i.name.equals("Sulfuras, Hand of Ragnaros")
   }
 }
