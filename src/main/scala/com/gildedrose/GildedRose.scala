@@ -14,7 +14,7 @@ class GildedRose(val items: Array[Item]) {
 
   def updateQuality() {
     for (i <- 0 until items.length) {
-      determineNewQuality(i)
+      determineNewQuality(items(i))
 
       if (hasToBeSold(items(i))) {
         items(i).sellIn = items(i).sellIn - 1
@@ -22,10 +22,7 @@ class GildedRose(val items: Array[Item]) {
     }
   }
 
-  private def determineNewQuality(i: Int) = {
-    def getItem = {
-      items(i)
-    }
+  private def determineNewQuality(getItem: Item) = {
 
     if (shouldJustLoseQuality(getItem)) {
       val qualityLoss = if (getItem.sellIn <= 0) 2 else 1
