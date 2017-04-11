@@ -21,8 +21,7 @@ class GildedRose(val items: Array[Item]) {
       else if (isAgedBrie(item)) qualityChangeAgedBrie(item)
       else if (isBackstagePasses(item)) qualityChangeBackstagePasses(item)
       else qualityChangeNormalItem(item)
-    val newQuality = newQualityWithinTheBounds(item.quality,qualityIncrease)
-    return newQuality
+    newQualityWithinTheBounds(item.quality,qualityIncrease)
   }
 
   private def qualityChangeBackstagePasses(item: Item) =
